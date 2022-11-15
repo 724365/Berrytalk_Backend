@@ -1,9 +1,9 @@
-package we.woongchang.board.domain.user;
+package we.woongchang.board.domain.user.entity;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import we.woongchang.board.domain.post.Post;
+import we.woongchang.board.domain.post.entity.Post;
 
 import javax.persistence.*;
 import java.util.ArrayList;

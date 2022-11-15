@@ -1,9 +1,9 @@
-package we.woongchang.board.repository.user;
+package we.woongchang.board.domain.user.entity.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import we.woongchang.board.domain.user.User;
+import we.woongchang.board.domain.user.entity.User;
 
 import java.util.Optional;
 

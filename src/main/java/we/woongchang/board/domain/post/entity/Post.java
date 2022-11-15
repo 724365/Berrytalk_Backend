@@ -1,17 +1,16 @@
-package we.woongchang.board.domain.post;
+package we.woongchang.board.domain.post.entity;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import we.woongchang.board.domain.user.User;
+import we.woongchang.board.domain.user.entity.User;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Getter
 @NoArgsConstructor
-public class Post {
+public class Post extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +33,9 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private User user;
+
+    @Column(name = "view")
+    private Long view;
 
     @Builder
     public Post(String title, String content, String writer, int search, User user) {
