@@ -1,4 +1,4 @@
-package we.woongchang.board.domain.user.entity.service;
+package we.woongchang.board.domain.user.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
