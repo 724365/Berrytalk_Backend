@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import we.woongchang.board.domain.post.entity.Post;
+import we.woongchang.board.domain.user.entity.role.UserRole;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -30,15 +31,19 @@ public class User {
     @Column(name = "user_password", nullable = false, length = 20)
     private String password;
 
-    @Builder
-    public User(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
 
     @OneToMany(mappedBy = "member", fetch = LAZY)
     private List<Post> postList = new ArrayList<>();
+
+    @Builder
+    public User(String name, String email, String password, UserRole userRole) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.userRole = userRole;
+    }
 
     public void postUpdate(Post newPost){
         postList.add(newPost);

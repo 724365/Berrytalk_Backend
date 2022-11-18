@@ -18,7 +18,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         return userRepository.findByEmail(email)
-                .map(UserResponseDto :: new)
-                .orElseThrow(() -> new UsernameNotFoundException("User not exist"))
+                .map(CustomUserDetails :: new)
+                .orElseThrow(() -> new UsernameNotFoundException("This user doesn't exist"));
     }
 }
