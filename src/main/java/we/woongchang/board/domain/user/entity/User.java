@@ -1,5 +1,6 @@
 package we.woongchang.board.domain.user.entity;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import static javax.persistence.FetchType.*;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
     @Id
@@ -34,7 +35,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
-    @OneToMany(mappedBy = "member", fetch = LAZY)
+    @OneToMany(mappedBy = "user", fetch = LAZY)
     private List<Post> postList = new ArrayList<>();
 
     @Builder

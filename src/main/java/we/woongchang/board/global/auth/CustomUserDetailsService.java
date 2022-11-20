@@ -4,21 +4,21 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import we.woongchang.board.domain.user.entity.User;
+import org.springframework.stereotype.Service;
 import we.woongchang.board.domain.user.entity.repository.UserRepository;
-import we.woongchang.board.domain.user.web.dto.response.UserResponseDto;
-
-import java.util.Optional;
 
 @RequiredArgsConstructor
+@Service
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
+
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         return userRepository.findByEmail(email)
                 .map(CustomUserDetails :: new)
-                .orElseThrow(() -> new UsernameNotFoundException("This user doesn't exist"));
+                .orElseThrow(() -> new  UsernameNotFoundException("This user doesn't exist"));
     }
 }
