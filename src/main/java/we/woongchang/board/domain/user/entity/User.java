@@ -10,6 +10,7 @@ import we.woongchang.board.domain.user.entity.role.UserRole;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static javax.persistence.FetchType.*;
 
@@ -46,7 +47,9 @@ public class User {
         this.userRole = userRole;
     }
 
-    public void postUpdate(Post newPost){
-        postList.add(newPost);
+    public void update(String email, String name, String password) {
+         this.email = email;
+         this.name = name;
+         this.password = password;
     }
 }

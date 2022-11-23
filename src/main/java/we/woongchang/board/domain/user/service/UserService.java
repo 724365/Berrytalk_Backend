@@ -1,46 +1,33 @@
 package we.woongchang.board.domain.user.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import we.woongchang.board.domain.user.entity.User;
 import we.woongchang.board.domain.user.entity.repository.UserRepository;
+import we.woongchang.board.domain.user.entity.role.UserRole;
+import we.woongchang.board.domain.user.web.dto.request.UserSignupRequestDto;
+import we.woongchang.board.global.exception.CustomException;
+import we.woongchang.board.global.exception.ErrorCode;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 public class UserService {
 
+    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
 
-    // id로 조회
-    public Optional<User> findById(Long id) {
-        Optional<User> findUser = userRepository.findById(id);
-        return findUser;
-    }
+        public void signup(UserSignupRequestDto userSignupRequestDto){
+        userRepository.findByEmail(userSignupRequestDto.getEmail()).orElseThrow(() -> new CustomException(ErrorCode.ALREADY_EXISTS_USER));
 
-    // email로 조회
-    public Optional<User> findByEmail(String email) {
-        Optional<User> findUser = userRepository.findByEmail(email);
-        return findUser;
-    }
+        User user = new User(userSignupRequestDto.getName(), userSignupRequestDto.getEmail(), passwordEncoder.encode(userSignupRequestDto.getPassword()), UserRole.USER);
 
-    // 전체 조회
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
-
-    // 회원 수정
-    public void update(Long id, String name, String password) {
-        Optional<User> findUser = userRepository.findById(id);
-
-        User updateUser = User.builder()
-                .name(name)
-                .password(password)
-                .build();
+        userRepository.save(user);
     }
 }
