@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import we.woongchang.board.domain.post.entity.Post;
 import we.woongchang.board.domain.user.entity.role.UserRole;
 
@@ -38,6 +39,13 @@ public class User {
 
     @OneToMany(mappedBy = "user", fetch = LAZY)
     private List<Post> postList = new ArrayList<>();
+
+    public void passwordEncode(PasswordEncoder passwordEncoder){
+        this.password = passwordEncoder.encode(password);
+    }
+    public void addUserAuthority() {
+        this.userRole = userRole.USER;
+    }
 
     @Builder
     public User(String name, String email, String password, UserRole userRole) {
